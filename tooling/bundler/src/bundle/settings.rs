@@ -18,7 +18,7 @@ use std::{
 };
 
 /// The type of the package we're bundling.
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Deserialize)]
 #[non_exhaustive]
 pub enum PackageType {
   /// The macOS application bundle (.app).
@@ -382,7 +382,7 @@ pub struct BundleSettings {
 }
 
 /// A binary to bundle.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Deserialize)]
 pub struct BundleBinary {
   name: String,
   src_path: Option<String>,
