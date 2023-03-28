@@ -500,7 +500,7 @@ impl Default for NSISInstallerMode {
 ///
 /// For more information see <https://tauri.app/v1/guides/building/windows>.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
-#[serde(tag = "type", rename_all = "camelCase", deny_unknown_fields)]
+//#[serde(tag = "type", rename_all = "camelCase", deny_unknown_fields)]
 #[cfg_attr(feature = "schema", derive(JsonSchema))]
 pub enum WebviewInstallMode {
   /// Do not install the Webview2 as part of the Windows Installer.
