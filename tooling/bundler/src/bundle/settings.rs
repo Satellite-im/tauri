@@ -18,7 +18,7 @@ use std::{
 };
 
 /// The type of the package we're bundling.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Deserialize)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 #[non_exhaustive]
 pub enum PackageType {
   /// The macOS application bundle (.app).
