@@ -5,6 +5,7 @@
 
 use super::category::AppCategory;
 use crate::bundle::{common, platform::target_triple};
+use serde::Deserialize;
 pub use tauri_utils::config::WebviewInstallMode;
 use tauri_utils::{
   config::{BundleType, NSISInstallerMode},
@@ -133,7 +134,7 @@ pub struct PackageSettings {
 }
 
 /// The updater settings.
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Default, Clone, Deserialize)]
 pub struct UpdaterSettings {
   /// Whether the updater is active or not.
   pub active: bool,
@@ -144,11 +145,11 @@ pub struct UpdaterSettings {
   /// Display built-in dialog or use event system if disabled.
   pub dialog: bool,
   /// Args to pass to `msiexec.exe` to run the updater on Windows.
-  pub msiexec_args: Option<&'static [&'static str]>,
+  pub msiexec_args: Option<Vec<String>>,
 }
 
 /// The Linux debian bundle settings.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Deserialize)]
 pub struct DebianSettings {
   // OS-specific settings:
   /// the list of debian dependencies.
@@ -159,7 +160,7 @@ pub struct DebianSettings {
 }
 
 /// The macOS bundle settings.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Deserialize)]
 pub struct MacOsSettings {
   /// MacOS frameworks that need to be bundled with the app.
   ///
@@ -193,14 +194,14 @@ pub struct MacOsSettings {
 }
 
 /// Configuration for a target language for the WiX build.
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Deserialize)]
 pub struct WixLanguageConfig {
   /// The path to a locale (`.wxl`) file. See <https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/build_a_localized_version.html>.
   pub locale_path: Option<PathBuf>,
 }
 
 /// The languages to build using WiX.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct WixLanguage(pub Vec<(String, WixLanguageConfig)>);
 
 impl Default for WixLanguage {
@@ -210,7 +211,7 @@ impl Default for WixLanguage {
 }
 
 /// Settings specific to the WiX implementation.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Deserialize)]
 pub struct WixSettings {
   /// The app languages to build. See <https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables>.
   pub language: WixLanguage,
@@ -250,7 +251,7 @@ pub struct WixSettings {
 }
 
 /// Settings specific to the NSIS implementation.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Deserialize)]
 pub struct NsisSettings {
   /// The path to the license file to render on the installer.
   pub license: Option<PathBuf>,
@@ -278,7 +279,7 @@ pub struct NsisSettings {
 }
 
 /// The Windows bundle settings.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Deserialize)]
 pub struct WindowsSettings {
   /// The file digest algorithm to use for creating file signatures. Required for code signing. SHA-256 is recommended.
   pub digest_algorithm: Option<String>,
@@ -329,7 +330,7 @@ impl Default for WindowsSettings {
 }
 
 /// The bundle settings of the BuildArtifact we're bundling.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Deserialize)]
 pub struct BundleSettings {
   /// the app's identifier.
   pub identifier: Option<String>,
