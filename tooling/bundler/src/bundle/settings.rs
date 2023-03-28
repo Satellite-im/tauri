@@ -117,7 +117,7 @@ const ALL_PACKAGE_TYPES: &[PackageType] = &[
 ];
 
 /// The package settings.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct PackageSettings {
   /// the package's product name.
   pub product_name: String,
